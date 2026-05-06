@@ -1,0 +1,27 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+
+export default function LoginForm() {
+    return (
+        <div className="flex flex-col gap-3 p-2">
+            <div className="flex flex-col gap-2">
+                <Label>Email</Label>
+                <Input 
+                    placeholder="Digite seu e-mail..."
+                />
+            </div>
+            <div className="flex flex-col gap-2">
+                <Label>Senha</Label>
+                <Input 
+                    placeholder="Digite sua senha..."
+                />
+            </div>
+
+            <Button>
+                Login
+            </Button>
+        </div>
+    )
+}
