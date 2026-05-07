@@ -38,10 +38,10 @@ export default function LoginForm() {
     }
 
     return (
-        <div>
+        <div className="w-full">
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-5"
+                className="flex flex-col gap-4"
             >
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -64,6 +64,8 @@ export default function LoginForm() {
                 </div>
 
                 <Button
+                    disabled={loadingLogin}
+                    className="cursor-pointer"
                     type="submit"
                 >
                     {loadingLogin ? <Spinner /> : "Login"}
