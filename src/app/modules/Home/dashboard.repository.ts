@@ -40,3 +40,18 @@ export async function getIncomeVsExpenseRepository() {
         return data
     }
 }
+
+
+export async function getRecentTransactionsRepository() {
+    const response = await fetch("/api/transactions?limit=5", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        return data
+    }
+}

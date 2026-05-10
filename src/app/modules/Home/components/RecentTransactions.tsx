@@ -9,16 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Transaction } from "../types"
 
-const transactions = [
-  { id: 1, description: "Salário", value: "R$ 5.200,00", type: "receita", date: "01/06", category: "Trabalho" },
-  { id: 2, description: "Aluguel", value: "R$ 1.500,00", type: "despesa", date: "05/06", category: "Moradia" },
-  { id: 3, description: "Freelance", value: "R$ 3.000,00", type: "receita", date: "10/06", category: "Trabalho" },
-  { id: 4, description: "Supermercado", value: "R$ 850,00", type: "despesa", date: "12/06", category: "Alimentação" },
-  { id: 5, description: "Internet", value: "R$ 120,00", type: "despesa", date: "15/06", category: "Serviços" },
-]
+type RecentTransactionsProps = {
+  transactions: Transaction[] | null
+}
 
-export function RecentTransactions() {
+export function RecentTransactions({ transactions }: RecentTransactionsProps) {
+  if (!transactions) return null
+
   return (
     <Card>
       <CardHeader>
@@ -29,10 +28,9 @@ export function RecentTransactions() {
         {transactions.map((t) => (
           <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`flex size-9 items-center justify-center rounded-full ${
-                t.type === "receita" ? "bg-emerald-500/10" : "bg-red-500/10"
-              }`}>
-                {t.type === "receita"
+              <div className={`flex size-9 items-center justify-center rounded-full ${t.type === "income" ? "bg-emerald-500/10" : "bg-red-500/10"
+                }`}>
+                {t.type === "income"
                   ? <ArrowUpRight className="size-4 text-emerald-500" />
                   : <ArrowDownLeft className="size-4 text-red-500" />
                 }
@@ -43,11 +41,11 @@ export function RecentTransactions() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Badge variant="secondary">{t.category}</Badge>
-              <span className={`text-sm font-semibold ${
-                t.type === "receita" ? "text-emerald-500" : "text-red-500"
-              }`}>
-                {t.type === "receita" ? "+" : "-"}{t.value}
+              <Badge variant="secondary">{t.category_name}</Badge>
+              <span className={`text-sm font-semibold ${t.type === "income" ? "text-emerald-500" : "text-red-500"
+                }`}>
+                {t.type === "income" ? "+" : "-"}
+                {Number(t.amount).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
               </span>
             </div>
           </div>

@@ -4,23 +4,26 @@ import { OverviewChart } from "@/app/modules/Home/components/OverviewChart"
 import { RecentTransactions } from "@/app/modules/Home/components/RecentTransactions"
 import { MonthlyGoals } from "@/app/modules/Home/components/MonthlyGoals"
 import { useEffect, useState } from "react"
-import { IncomeVsExpense, Summary } from "@/app/modules/Home/types"
-import { getIncomeVsExpenseServices, getSummaryServices } from "@/app/modules/Home/dashboard.services"
+import { IncomeVsExpense, Summary, Transaction } from "@/app/modules/Home/types"
+import { getIncomeVsExpenseServices, getRecentTransactionsServices, getSummaryServices } from "@/app/modules/Home/dashboard.services"
 
 export default function Home() {
 
   const [summary, setSummary] = useState<Summary | null>(null)
   const [incomeVsExpense, setIncomeVsExpense] = useState<IncomeVsExpense[] | null>(null)
+  const [recentTransactions, setRecentTransactions] = useState<Transaction[] | null>(null)
 
 
   useEffect(() => {
     async function loadData() {
-      const [summaryData, incomeVsExpenseData] = await Promise.all([
+      const [summaryData, incomeVsExpenseData, transactionsData] = await Promise.all([
         getSummaryServices(),
-        getIncomeVsExpenseServices()
+        getIncomeVsExpenseServices(),
+        getRecentTransactionsServices()
       ])
       setSummary(summaryData)
       setIncomeVsExpense(incomeVsExpenseData)
+      setRecentTransactions(transactionsData?.items ?? null)
     }
     loadData()
   }, [])
@@ -43,7 +46,7 @@ export default function Home() {
         </div>
       </div>
 
-      <RecentTransactions />
+      <RecentTransactions transactions={recentTransactions} />
     </div>
   )
 }

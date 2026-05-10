@@ -1,4 +1,4 @@
-import { getExpenseByCategoryRepository, getIncomeVsExpenseRepository, getSummaryRepository } from "./dashboard.repository";
+import { getExpenseByCategoryRepository, getIncomeVsExpenseRepository, getRecentTransactionsRepository, getSummaryRepository } from "./dashboard.repository";
 
 
 export async function getSummaryServices() {
@@ -11,4 +11,8 @@ export async function getExpenseByCategoryServices() {
 
 export async function getIncomeVsExpenseServices() {
     return await getIncomeVsExpenseRepository()
+}
+
+export async function getRecentTransactionsServices() {
+    return await getRecentTransactionsRepository()
 }
