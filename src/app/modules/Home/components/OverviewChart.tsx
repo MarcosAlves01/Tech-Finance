@@ -14,27 +14,40 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
-
-const chartData = [
-  { month: "Jan", receitas: 4200, despesas: 3100 },
-  { month: "Fev", receitas: 5300, despesas: 2800 },
-  { month: "Mar", receitas: 4800, despesas: 3500 },
-  { month: "Abr", receitas: 6100, despesas: 3200 },
-  { month: "Mai", receitas: 7200, despesas: 4100 },
-  { month: "Jun", receitas: 8200, despesas: 3750 },
-]
+import { IncomeVsExpense } from "../types"
 
 const chartConfig = {
   receitas: { label: "Receitas", color: "var(--chart-1)" },
   despesas: { label: "Despesas", color: "var(--chart-3)" },
 } satisfies ChartConfig
 
-export function OverviewChart() {
+type OverviewChartProps = {
+  data: IncomeVsExpense[] | null
+}
+
+export function OverviewChart({ data }: OverviewChartProps) {
+  if (!data) return null
+
+  const chartData = data.reduce((acc, item) => {
+    const existing = acc.find((entry) => entry.month === item.month)
+    if (existing) {
+      if (item.type === "income") existing.receitas = Number(item.total)
+      else existing.despesas = Number(item.total)
+    } else {
+      acc.push({
+        month: item.month,
+        receitas: item.type === "income" ? Number(item.total) : 0,
+        despesas: item.type === "expense" ? Number(item.total) : 0,
+      })
+    }
+    return acc
+  }, [] as { month: string; receitas: number; despesas: number }[])
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Visão Geral</CardTitle>
-        <CardDescription>Receitas vs Despesas - Últimos 6 meses</CardDescription>
+        <CardDescription>Receitas vs Despesas - Últimos meses</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[300px] w-full">

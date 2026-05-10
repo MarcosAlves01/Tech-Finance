@@ -7,39 +7,37 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Summary } from "../types"
 
-const summaryData = [
-  {
-    title: "Saldo Total",
-    value: "R$ 12.450,00",
-    change: "+4.5%",
-    trend: "up" as const,
-    icon: Wallet,
-  },
-  {
-    title: "Receitas",
-    value: "R$ 8.200,00",
-    change: "+12.3%",
-    trend: "up" as const,
-    icon: TrendingUp,
-  },
-  {
-    title: "Despesas",
-    value: "R$ 3.750,00",
-    change: "-2.1%",
-    trend: "down" as const,
-    icon: TrendingDown,
-  },
-  {
-    title: "Economia",
-    value: "R$ 4.450,00",
-    change: "+8.7%",
-    trend: "up" as const,
-    icon: PiggyBank,
-  },
-]
+type SummaryType = {
+  summary: Summary | null
+}
 
-export function SummaryCards() {
+export function SummaryCards({ summary }: SummaryType) {
+  if (!summary) return null
+
+  const summaryData = [
+    {
+      title: "Saldo Total",
+      value: Number(summary.balance).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
+      icon: Wallet,
+    },
+    {
+      title: "Receitas",
+      value: Number(summary.total_income).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
+      icon: TrendingUp,
+    },
+    {
+      title: "Despesas",
+      value: Number(summary.total_expense).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
+      icon: TrendingDown,
+    },
+    {
+      title: "Transações",
+      value: String(summary.transaction_count),
+      icon: PiggyBank,
+    },
+  ]
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {summaryData.map((item) => (
@@ -52,9 +50,9 @@ export function SummaryCards() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{item.value}</div>
-            <p className={`text-xs mt-1 ${item.trend === "up" ? "text-emerald-500" : "text-red-500"}`}>
+            {/* <p className={`text-xs mt-1 ${item.trend === "up" ? "text-emerald-500" : "text-red-500"}`}>
               {item.change} em relação ao mês anterior
-            </p>
+            </p> */}
           </CardContent>
         </Card>
       ))}
