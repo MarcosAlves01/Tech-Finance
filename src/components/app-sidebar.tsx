@@ -8,6 +8,7 @@ import {
   Settings,
   LogOut,
   CreditCard,
+  Tag,
 } from "lucide-react"
 import {
   Sidebar,
@@ -26,6 +27,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const menuItems = [
   { title: "Home", icon: Home, href: "/home", isActive: true },
+  { title: "Categorias", icon: Tag, href: "/categories" },
   { title: "Receitas", icon: TrendingUp, href: "/receitas" },
   { title: "Despesas", icon: TrendingDown, href: "/despesas" },
   { title: "Cartões", icon: CreditCard, href: "/cartoes" },
