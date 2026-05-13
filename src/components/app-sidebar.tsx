@@ -2,15 +2,13 @@
 
 import {
   Home,
-  TrendingUp,
-  TrendingDown,
   BarChart3,
   Settings,
   LogOut,
-  CreditCard,
   Tag,
   ArrowLeftRight,
 } from "lucide-react"
+import { usePathname } from "next/navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -27,13 +25,15 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const menuItems = [
-  { title: "Home", icon: Home, href: "/home", isActive: true },
+  { title: "Home", icon: Home, href: "/home" },
   { title: "Transações", icon: ArrowLeftRight, href: "/transactions" },
   { title: "Categorias", icon: Tag, href: "/categories" },
   { title: "Relatórios", icon: BarChart3, href: "/relatorios" },
 ]
 
 export function AppSidebar() {
+  const pathname = usePathname()
+
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
@@ -54,7 +54,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={item.isActive}>
+                  <SidebarMenuButton asChild isActive={pathname === item.href}>
                     <a href={item.href}>
                       <item.icon />
                       <span>{item.title}</span>

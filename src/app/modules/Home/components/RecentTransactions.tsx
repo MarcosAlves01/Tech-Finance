@@ -42,7 +42,7 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
             </div>
             <div className="flex items-center gap-3">
               <Badge variant="secondary">{t.category_name}</Badge>
-              <span className={`text-sm font-semibold ${t.type === "income" ? "text-emerald-500" : "text-red-500"
+              <span className={`text-sm font-semibold ${t.type === "income" ? "text-emerald-500" : "text-red-500/90"
                 }`}>
                 {t.type === "income" ? "+" : "-"}
                 {Number(t.amount).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}

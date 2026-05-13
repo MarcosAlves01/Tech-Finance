@@ -45,20 +45,22 @@ export function TransactionsList({ transactions, onEdit, onDelete }: Transaction
                                 <p className="text-xs text-muted-foreground">{t.date}</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-5">
                             <Badge variant="secondary">{t.category_name}</Badge>
                             <span className={`text-sm font-semibold ${
-                                t.type === "income" ? "text-emerald-500" : "text-red-500"
+                                t.type === "income" ? "text-emerald-500" : "text-red-500/90"
                             }`}>
                                 {t.type === "income" ? "+" : "-"}
                                 {Number(t.amount).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                             </span>
-                            <Button variant="ghost" size="icon" onClick={() => onEdit(t)}>
-                                <Pencil className="size-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon" onClick={() => onDelete(t.id)}>
-                                <Trash2 className="size-4 text-red-500" />
-                            </Button>
+                            <div className="flex gap-2">
+                                <Button variant="outline" onClick={() => onEdit(t)}>
+                                    <Pencil className="size-4" />
+                                </Button>
+                                <Button variant="outline" onClick={() => onDelete(t.id)}>
+                                    <Trash2 className="size-4 text-red-500" />
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 ))}
