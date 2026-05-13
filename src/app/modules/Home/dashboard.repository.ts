@@ -1,6 +1,7 @@
+import { fetchAuth } from "@/lib/fetchAuth"
 
 export async function getSummaryRepository() {
-    const response = await fetch("/api/reports/summary", {
+    const response = await fetchAuth("/api/reports/summary", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -14,7 +15,7 @@ export async function getSummaryRepository() {
 }
 
 export async function getExpenseByCategoryRepository() {
-    const response = await fetch("/api/reports/expense-by-category", {
+    const response = await fetchAuth("/api/reports/expense-by-category", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -28,7 +29,7 @@ export async function getExpenseByCategoryRepository() {
 }
 
 export async function getIncomeVsExpenseRepository() {
-    const response = await fetch("/api/reports/income-vs-expense", {
+    const response = await fetchAuth("/api/reports/income-vs-expense", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ export async function getIncomeVsExpenseRepository() {
 
 
 export async function getRecentTransactionsRepository() {
-    const response = await fetch("/api/transactions?limit=5", {
+    const response = await fetchAuth("/api/transactions?limit=5", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

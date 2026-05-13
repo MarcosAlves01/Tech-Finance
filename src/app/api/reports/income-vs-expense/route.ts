@@ -19,6 +19,5 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
         request_ok: false,
-    })
-
+    }, { status: response.status })
 }

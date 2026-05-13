@@ -1,8 +1,9 @@
 import { CreateTransactionPayload } from "./types"
+import { fetchAuth } from "@/lib/fetchAuth"
 
 
 export async function getTransactionsRepository(params: string = "") {
-    const response = await fetch(`/api/transactions?${params}`, {
+    const response = await fetchAuth(`/api/transactions?${params}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +17,7 @@ export async function getTransactionsRepository(params: string = "") {
 }
 
 export async function createTransactionRepository(payload: CreateTransactionPayload) {
-    const response = await fetch("/api/transactions", {
+    const response = await fetchAuth("/api/transactions", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +32,7 @@ export async function createTransactionRepository(payload: CreateTransactionPayl
 }
 
 export async function updateTransactionRepository(id: number, payload: Partial<CreateTransactionPayload>) {
-    const response = await fetch(`/api/transactions/${id}`, {
+    const response = await fetchAuth(`/api/transactions/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ export async function updateTransactionRepository(id: number, payload: Partial<C
 }
 
 export async function deleteTransactionRepository(id: number) {
-    const response = await fetch(`/api/transactions/${id}`, {
+    const response = await fetchAuth(`/api/transactions/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

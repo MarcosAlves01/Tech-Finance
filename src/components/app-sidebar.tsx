@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { User } from "@/app/modules/Settings/types"
 import { getProfileServices } from "@/app/modules/Settings/settings.services"
 
@@ -37,6 +38,7 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
@@ -51,6 +53,11 @@ export function AppSidebar() {
     .slice(0, 2)
     .join("")
     .toUpperCase() || ""
+
+  async function handleLogout() {
+    await fetch("/api/logout", { method: "POST" })
+    router.push("/login")
+  }
 
   return (
     <Sidebar>
@@ -113,7 +120,7 @@ export function AppSidebar() {
             <span className="font-medium">{user?.name || ""}</span>
             <span className="text-xs text-muted-foreground">{user?.email || ""}</span>
           </div>
-          <button className="text-muted-foreground hover:text-foreground">
+          <button onClick={handleLogout} className="text-muted-foreground hover:text-foreground">
             <LogOut className="size-4" />
           </button>
         </div>

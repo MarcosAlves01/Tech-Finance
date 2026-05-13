@@ -1,7 +1,8 @@
+import { fetchAuth } from "@/lib/fetchAuth"
 
 
 export async function getCategoriesRepository(page: number = 1) {
-    const response = await fetch(`/api/categories?page=${page}&limit=20`, {
+    const response = await fetchAuth(`/api/categories?page=${page}&limit=20`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -15,7 +16,7 @@ export async function getCategoriesRepository(page: number = 1) {
 }
 
 export async function createCategoryRepository(name: string) {
-    const response = await fetch("/api/categories", {
+    const response = await fetchAuth("/api/categories", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -30,7 +31,7 @@ export async function createCategoryRepository(name: string) {
 }
 
 export async function updateCategoryRepository(id: number, name: string) {
-    const response = await fetch(`/api/categories/${id}`, {
+    const response = await fetchAuth(`/api/categories/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -45,7 +46,7 @@ export async function updateCategoryRepository(id: number, name: string) {
 }
 
 export async function deleteCategoryRepository(id: number) {
-    const response = await fetch(`/api/categories/${id}`, {
+    const response = await fetchAuth(`/api/categories/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

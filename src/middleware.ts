@@ -1,18 +1,25 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const publicPaths = ["/login", "/register"];
+
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   const { pathname } = req.nextUrl;
 
-  const isLoginPage = pathname === "/login" || pathname.startsWith("/login/");
-  const isProtected = pathname.startsWith("/home");
+  const isPublic = publicPaths.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`)
+  );
 
-  if (isProtected && !token) {
+  const isApi = pathname.startsWith("/api");
+
+  if (isApi) return NextResponse.next();
+
+  if (!isPublic && !token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (isLoginPage && token) {
+  if (isPublic && token) {
     return NextResponse.redirect(new URL("/home", req.url));
   }
 
@@ -20,5 +27,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:path*", "/login"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
