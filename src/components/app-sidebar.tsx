@@ -9,6 +9,7 @@ import {
   ArrowLeftRight,
 } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -24,6 +25,8 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
+import { User } from "@/app/modules/Settings/types"
+import { getProfileServices } from "@/app/modules/Settings/settings.services"
 
 const menuItems = [
   { title: "Home", icon: Home, href: "/home" },
@@ -34,6 +37,20 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    getProfileServices().then((data) => {
+      if (data) setUser(data)
+    })
+  }, [])
+
+  const initials = user?.name
+    ?.split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase() || ""
 
   return (
     <Sidebar>
@@ -72,7 +89,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild isActive={pathname === "/configuracoes"}>
                   <Link href="/configuracoes">
                     <Settings />
                     <span>Configurações</span>
@@ -89,12 +106,12 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         <div className="flex items-center gap-3">
           <Avatar size="default">
-            <AvatarImage src="" alt="Usuário" />
-            <AvatarFallback>MR</AvatarFallback>
+            <AvatarImage src="" alt={user?.name || "Usuário"} />
+            <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-1 flex-col text-sm">
-            <span className="font-medium">Marcos</span>
-            <span className="text-xs text-muted-foreground">marcos@email.com</span>
+            <span className="font-medium">{user?.name || ""}</span>
+            <span className="text-xs text-muted-foreground">{user?.email || ""}</span>
           </div>
           <button className="text-muted-foreground hover:text-foreground">
             <LogOut className="size-4" />

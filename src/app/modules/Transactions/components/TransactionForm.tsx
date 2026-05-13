@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Spinner } from "@/components/ui/spinner"
 import { useState } from "react"
 import { toast } from "sonner"
 import { Category } from "@/app/modules/Categories/types"
@@ -105,8 +106,8 @@ export function TransactionForm({ categories, initialData, onSubmit, onCancel, s
             </div>
 
             <div className="flex gap-3">
-                <Button type="submit" disabled={loading}>
-                    {submitLabel}
+                <Button type="submit" disabled={loading} className="cursor-pointer">
+                    {loading ? <Spinner /> : submitLabel}
                 </Button>
                 <Button type="button" variant="outline" onClick={onCancel}>
                     Cancelar
