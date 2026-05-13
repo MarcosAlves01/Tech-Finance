@@ -12,12 +12,12 @@ export function ThemeWrapper({
 }>) {
   const [themeColor] = useTheme()
 useEffect(() => {
+  document.body.classList.forEach((cls) => {
+    if (cls.startsWith('theme-')) document.body.classList.remove(cls);
+  });
   if (themeColor) {
-    document.body.className = `theme-${themeColor}`;
+    document.body.classList.add(`theme-${themeColor}`);
   }
-  return () => {
-    document.body.className = '';
-  };
 }, [themeColor]);
 
   return <div className={cn(themeColor && `theme-${themeColor}`)} id="cont">{children}</div>

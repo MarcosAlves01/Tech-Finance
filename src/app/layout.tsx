@@ -15,6 +15,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var color = localStorage.getItem('themeColor');
+                if (color) {
+                  color = color.replace(/"/g, '');
+                  document.addEventListener('DOMContentLoaded', function() {
+                    document.body.classList.add('theme-' + color);
+                  });
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"

@@ -58,7 +58,7 @@ export function TransactionsList({ transactions, onEdit, onDelete }: Transaction
                                     <Pencil className="size-4" />
                                 </Button>
                                 <Button variant="outline" onClick={() => onDelete(t.id)}>
-                                    <Trash2 className="size-4 text-red-500" />
+                                    <Trash2 className="size-4 text-red-500/90" />
                                 </Button>
                             </div>
                         </div>

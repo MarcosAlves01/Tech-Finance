@@ -36,7 +36,7 @@ export function CategoriesList({ categories, onEdit, onDelete }: CategoriesListP
                                 <Pencil className="size-4" />
                             </Button>
                             <Button variant="ghost" size="icon" onClick={() => onDelete(category.id)}>
-                                <Trash2 className="size-4 text-red-500" />
+                                <Trash2 className="size-4 text-red-500/90" />
                             </Button>
                         </div>
                     </div>
