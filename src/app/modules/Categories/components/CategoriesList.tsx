@@ -32,10 +32,10 @@ export function CategoriesList({ categories, onEdit, onDelete }: CategoriesListP
                     <div key={category.id} className="flex items-center justify-between rounded-lg border p-3">
                         <span className="text-sm font-medium">{category.name}</span>
                         <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="icon" onClick={() => onEdit(category)}>
+                            <Button variant="outline" size="icon" onClick={() => onEdit(category)}>
                                 <Pencil className="size-4" />
                             </Button>
-                            <Button variant="ghost" size="icon" onClick={() => onDelete(category.id)}>
+                            <Button variant="outline" size="icon" onClick={() => onDelete(category.id)}>
                                 <Trash2 className="size-4 text-red-500/90" />
                             </Button>
                         </div>

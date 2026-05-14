@@ -50,7 +50,7 @@ export function OverviewChart({ data }: OverviewChartProps) {
         <CardDescription>Receitas vs Despesas - Últimos meses</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+        <ChartContainer config={chartConfig} className="h-[300px] w-full verflow-auto">
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />

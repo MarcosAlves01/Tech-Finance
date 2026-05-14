@@ -9,9 +9,11 @@ import { LoginServices } from "./Login.services";
 import { ResponseApiRouteLogin } from "./types";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
+import { Eye, EyeOff } from "lucide-react";
 
 
 export default function LoginForm() {
+    const [showPassword, setShowPassword] = useState(false)
     const router = useRouter()
     const [form, setForm] = useState({
         email: '',
@@ -37,6 +39,11 @@ export default function LoginForm() {
         setLoadingLogin(false)
     }
 
+    function visiblePassword(e: any) {
+        e.preventDefault()
+        setShowPassword(!showPassword)
+    }
+
     return (
         <div className="w-full">
             <form
@@ -55,12 +62,20 @@ export default function LoginForm() {
                 </div>
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="password">Senha</Label>
-                    <Input
-                        id="password"
-                        value={form.password}
-                        placeholder="Digite sua senha..."
-                        onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    />
+                    <div className="relative flex justify-end items-center">
+
+                        <Input
+                            id="password"
+                            value={form.password}
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Digite sua senha..."
+                            onChange={(e) => setForm({ ...form, password: e.target.value })}
+                        />
+                        <button onClick={visiblePassword} className="absolute mr-4 cursor-pointer text-zinc-300">
+                            {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                        </button>
+                    </div>
+
                 </div>
 
                 <Button

@@ -32,8 +32,8 @@ import { getProfileServices } from "@/app/modules/Settings/settings.services"
 const menuItems = [
   { title: "Home", icon: Home, href: "/home" },
   { title: "Transações", icon: ArrowLeftRight, href: "/transactions" },
-  { title: "Categorias", icon: Tag, href: "/categories" },
-  { title: "Relatórios", icon: BarChart3, href: "/relatorios" },
+  { title: "Categorias", icon: Tag, href: "/categories" }
+  // { title: "Relatórios", icon: BarChart3, href: "/relatorios" },
 ]
 
 export function AppSidebar() {
